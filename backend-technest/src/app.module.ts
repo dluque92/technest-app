@@ -3,7 +3,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Account } from './account/account.entity';
+import { Exchange } from './exchange/exchange.entity';
 import { AccountModule } from './account/account.module';
+import { ExchangeModule } from './exchange/exchange.module';
 
 @Module({
   imports: [
@@ -13,13 +15,15 @@ import { AccountModule } from './account/account.module';
       synchronize: true,
       useUnifiedTopology: true,
       entities: [
-        Account
+        Account,
+        Exchange
       ]
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true
     }),
-    AccountModule
+    AccountModule,
+    ExchangeModule
   ]
 })
 export class AppModule {}
