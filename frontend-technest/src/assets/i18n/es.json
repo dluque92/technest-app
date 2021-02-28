@@ -1,0 +1,10 @@
+{
+    "core": {
+        "toolbar": {
+            "label": {
+                "currentExchange": "Cambio actual: {{ USD }}"
+            }
+        }
+
+    }
+}

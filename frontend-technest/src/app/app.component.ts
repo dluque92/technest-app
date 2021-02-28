@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import { DataProviderService } from './services/data-provider.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend-technest';
+  constructor(
+    translateService: TranslateService,
+    dataProviderService: DataProviderService
+  ) {
+    const langs = ['en', 'es'];
+    const [ defaultLang ] = langs;
+
+    translateService.addLangs(langs);
+    translateService.setDefaultLang(defaultLang);
+    translateService.use(defaultLang);
+
+    dataProviderService.initCurrentExchangeSubscription();
+  }
 }
