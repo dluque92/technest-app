@@ -9,7 +9,7 @@ import { DataProviderService } from 'src/app/services/data-provider.service';
   styleUrls: ['./toolbar-exchange.component.scss']
 })
 export class ToolbarExchangeComponent implements OnInit {
-  currentExchangeUSD: number = 0;
+  currentExchangeUSD: string = '';
 
   constructor(
     private dataProviderService: DataProviderService
@@ -22,7 +22,7 @@ export class ToolbarExchangeComponent implements OnInit {
   private initCurrentExchangeSubscription(): void {
     this.dataProviderService.currentExchange
       .subscribe((currentExchange: CurrentExchange) => {
-        this.currentExchangeUSD = currentExchange.USD;
+        this.currentExchangeUSD = currentExchange.USD.toFixed(2);
       })
   }
 }

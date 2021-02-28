@@ -25,11 +25,13 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@popperjs/core": "^2.8.6",
+    "@types/socket.io-client": "^1.4.35",
     "apollo-angular": "^2.3.0",
     "bootstrap": "^4.6.0",
     "graphql": "^15.0.0",
     "jquery": "^3.5.1",
     "rxjs": "~6.6.0",
+    "socket.io-client": "^2.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },

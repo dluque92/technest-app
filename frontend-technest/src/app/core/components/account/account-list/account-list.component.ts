@@ -47,5 +47,4 @@ export class AccountListComponent implements OnInit {
         this.data = accounts;
       })
   }
-
 }
