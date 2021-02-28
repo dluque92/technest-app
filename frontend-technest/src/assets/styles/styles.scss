@@ -3,12 +3,36 @@
 @import "~bootstrap/scss/utilities/_sizing.scss";
 
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import 'variables';
 
 html,
 body {
   height: 100%;
+  background-color: $light-grey;
 }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.section-toolbar {
+  height: 128px;
+  background-color: white;
+  border-top: 1px solid $line-grey;
+  border-bottom: 1px solid $line-grey;
+
+  .current-section {
+    margin: 2rem;
+    color: $primary-grey;
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 300;
+    }
+
+    .section-route {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+  }
 }

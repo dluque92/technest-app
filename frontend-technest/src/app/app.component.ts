@@ -14,7 +14,7 @@ export class AppComponent {
     dataProviderService: DataProviderService
   ) {
     const langs = ['en', 'es'];
-    const [ defaultLang ] = langs;
+    const [defaultLang] = langs;
 
     translateService.addLangs(langs);
     translateService.setDefaultLang(defaultLang);

@@ -5,17 +5,18 @@ import { ApolloQueryResult } from '@apollo/client/core';
 
 import { Subject } from 'rxjs';
 
-import { CurrentExchange, QueryCurrentExchange } from '../core/interfaces/common.interface';
+import { CurrentExchange, QueryAccounts, QueryCurrentExchange, Account } from '../core/interfaces/common.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataProviderService {
   currentExchange: Subject<CurrentExchange> = new Subject<CurrentExchange>();
+  accounts: Subject<Account[]> = new Subject<Account[]>();
 
   constructor(
     private apollo: Apollo
-  ) {}
+  ) { }
 
   initCurrentExchangeSubscription(): void {
     this.apollo.watchQuery<QueryCurrentExchange>({
@@ -27,9 +28,30 @@ export class DataProviderService {
         }
       `
     })
-    .valueChanges
-    .subscribe((result: ApolloQueryResult<QueryCurrentExchange>) => {
-      this.currentExchange.next(result.data.exchange)
-    });
+      .valueChanges
+      .subscribe((result: ApolloQueryResult<QueryCurrentExchange>) => {
+        this.currentExchange.next(result.data.exchange)
+      });
+  }
+
+  initAccountSubscription(): void {
+    this.apollo.watchQuery<QueryAccounts>({
+      query: gql`
+      {
+        accounts {
+          id
+          accountName
+          category
+          tag
+          balance
+          availableBalance
+        }
+      }
+    `
+    })
+      .valueChanges
+      .subscribe((result: ApolloQueryResult<QueryAccounts>) => {
+        this.accounts.next(result.data.accounts)
+      });
   }
 }

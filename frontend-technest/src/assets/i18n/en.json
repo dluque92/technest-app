@@ -1,10 +1,21 @@
 {
     "core": {
-        "toolbar": {
-            "label": {
-                "currentExchange": "Current exchange: {{ USD }}"
+        "account": {
+            "shared": {
+                "accounts": "Accounts",
+                "home": "Home"
+            },
+            "accountDetails": {
+                "details": "Details",
+                "accountDetail": "Account detail"
+            },
+            "accountList": {
+                "accountName": "Account Name",
+                "category": "Category",
+                "tags": "Tags",
+                "balance": "Balance",
+                "availableBalance": "Available balance"
             }
         }
-
     }
 }

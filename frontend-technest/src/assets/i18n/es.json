@@ -1,10 +1,21 @@
 {
     "core": {
-        "toolbar": {
-            "label": {
-                "currentExchange": "Cambio actual: {{ USD }}"
+        "account": {
+            "shared": {
+                "accounts": "Cuentas",
+                "home": "Inicio"
+            },
+            "accountDetails": {
+                "details": "Detalle",
+                "accountDetail": "Detalle de la cuenta"
+            },
+            "accountList": {
+                "accountName": "Nombre de la cuenta",
+                "category": "Categoria",
+                "tags": "Etiquetas",
+                "balance": "Balance",
+                "availableBalance": "Balance disponible"
             }
         }
-
     }
 }

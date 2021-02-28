@@ -10,14 +10,25 @@ import { AccountListComponent } from './components/account/account-list/account-
 import { AccountDetailsComponent } from './components/account/account-details/account-details.component';
 import { ToolbarExchangeComponent } from './components/toolbar-exchange/toolbar-exchange.component';
 
+import { DataGridModule } from './shared/components/data-grid/data-grid.module';
+
 const routes: Routes = [
   {
     path: '',
     component: ToolbarExchangeComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'accounts',
+        pathMatch: 'full'
+      },
+      {
         path: 'accounts',
         component: AccountListComponent
+      },
+      {
+        path: 'accounts/:id',
+        component: AccountDetailsComponent
       }
     ]
   }
@@ -34,6 +45,8 @@ const routes: Routes = [
     TranslateModule,
 
     RouterModule.forChild(routes),
+
+    DataGridModule,
 
     MatIconModule,
     MatToolbarModule,

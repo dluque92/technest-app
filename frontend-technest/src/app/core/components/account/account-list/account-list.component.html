@@ -1,1 +1,16 @@
-<p>account-list works!</p>
+<mat-toolbar class="section-toolbar">
+    <div class="current-section">
+        <div class="section-title">{{ 'core.account.shared.accounts'|translate }}</div>
+        <div class="section-route">{{ 'core.account.shared.home'|translate }} / <b>{{ 'core.account.shared.accounts'|translate }}</b></div>
+    </div>
+</mat-toolbar>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10 offset-1 mt-4">
+            <app-data-grid
+                [data]="data"
+                [columns]="columns">
+            </app-data-grid>
+        </div>
+    </div>
+</div>
