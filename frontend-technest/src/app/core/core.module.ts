@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AccountListComponent } from './components/account/account-list/account-list.component';
 import { AccountDetailsComponent } from './components/account/account-details/account-details.component';
@@ -30,7 +33,11 @@ const routes: Routes = [
     CommonModule,
     TranslateModule,
 
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule
   ]
 })
 export class CoreModule { }
