@@ -5,8 +5,6 @@ const CRYPTOCOMPARE_URL = 'https://min-api.cryptocompare.com/data/price';
 
 @Injectable()
 export class ExchangeService {
-    private currentExchange: Exchange;
-
     constructor(
         private http: HttpService
     ){}
@@ -19,19 +17,22 @@ export class ExchangeService {
         };
 
         try {
-            this.currentExchange = await this.http.get(CRYPTOCOMPARE_URL, { params })
+            return await this.http.get(CRYPTOCOMPARE_URL, { params })
                 .toPromise()
                 .then(res => res.data);
-
-            return this.currentExchange;
         } catch (error) {
             throw error;
         }
     }
 
-    getRandomCurrentExchange(): Exchange {
+    async getRandomCurrentExchange(): Promise<Exchange> {
+        // If you want to get REAL current exchange
+        // return await this.getCurrentExchange();
+
+        const currentExchange = await this.getCurrentExchange();
+
         return {
-            USD: (Math.random() * (12000 - 5000) + 5000) + this.currentExchange?.USD
+            USD: (Math.random() * (12000 - 5000) + 5000) + currentExchange.USD
         }
     }
 }

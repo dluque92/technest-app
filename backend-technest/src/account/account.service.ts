@@ -34,4 +34,19 @@ export class AccountService {
 
         return this.accountRepossitory.save(account);
     }
+
+    async getRandomAccountBalance(): Promise<Account> {
+        const accounts = await this.getAccounts();
+        const randomIndex = Math.floor(Math.random() * (accounts.length-1));
+        const plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+        const randomBalance = plusOrMinus * Math.random();
+        const account = accounts[randomIndex];
+
+        account.balance += randomBalance;
+        account.availableBalance += randomBalance;
+
+        const { _id, ...res } = account;
+        
+        return res;
+    }
 }

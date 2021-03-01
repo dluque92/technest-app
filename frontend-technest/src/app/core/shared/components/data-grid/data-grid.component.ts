@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { DataProviderService } from 'src/app/services/data-provider.service';
-import { AccountDetail, DataGridColumn, Account, CurrentExchange } from 'src/app/core/interfaces/common.interface';
+import { DataGridColumn, Account, CurrentExchange, AccountTransaction, BalanceType } from 'src/app/core/interfaces/common.interface';
 
 @Component({
   selector: 'app-data-grid',
@@ -12,17 +12,19 @@ import { AccountDetail, DataGridColumn, Account, CurrentExchange } from 'src/app
   styleUrls: ['./data-grid.component.scss']
 })
 export class DataGridComponent implements OnInit, AfterViewInit {
-  dataSource: MatTableDataSource<Account | AccountDetail>;
+  dataSource: MatTableDataSource<Account | AccountTransaction>;
 
   currentExchangeUSD: number = 0;
   pageSizeOptions = [10, 20, 50, 100];
+  balanceProperties: string[] = ['balance', 'availableBalance'];
   bitcoinsProperties: string[] = ['balance', 'availableBalance', 'debit', 'credit'];
 
   get displayColumns(): string[] {
     return this.columns.map((column: DataGridColumn) => column.name);
   }
 
-  @Input() data: Account[] | AccountDetail[] = [];
+  @Input() data: Account[] | AccountTransaction[] = [];
+  @Input() dataUpdated: Account | AccountTransaction | null = null;
   @Input() columns: DataGridColumn[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -42,6 +44,10 @@ export class DataGridComponent implements OnInit, AfterViewInit {
     if (changes.data) {
       this.dataSource.data = changes.data.currentValue;
     }
+
+    if (changes.dataUpdated?.currentValue) {
+      this.updateCurrentData(changes.dataUpdated.currentValue);
+    }
   }
 
   ngAfterViewInit() {
@@ -60,10 +66,33 @@ export class DataGridComponent implements OnInit, AfterViewInit {
     }
   }
 
+  isLowerBalance(account: Account | AccountTransaction, propertieName: string): boolean {
+    return this.balanceProperties.includes(propertieName) && account.balanceChange === BalanceType.LOWER;
+  }
+
+  isHigherBalance(account: Account | AccountTransaction, propertieName: string): boolean {
+    return this.balanceProperties.includes(propertieName) && account.balanceChange === BalanceType.HIGHER;
+  }
+
   private initCurrentExchangeSubscription(): void {
     this.dataProviderService.currentExchange
       .subscribe((currentExchange: CurrentExchange) => {
         this.currentExchangeUSD = currentExchange.USD;
       })
+  }
+
+  private updateCurrentData(dataUpdated: Account): void {
+    const index = this.dataSource.data.findIndex((data: Account | AccountTransaction) => data.id === dataUpdated.id);
+    const item = this.dataSource.data[index];
+
+    item.balanceChange = item.balance < dataUpdated.balance ?
+      BalanceType.HIGHER :
+      item.balance > dataUpdated.balance ? BalanceType.LOWER : BalanceType.SAME;
+
+    item.balance = dataUpdated.balance;
+
+    if (item.availableBalance) {
+      item.availableBalance = dataUpdated.availableBalance;
+    }
   }
 }

@@ -3,7 +3,7 @@ import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 @Entity()
 export class Account {
     @ObjectIdColumn()
-    _id: string;
+    _id?: string;
     
     @PrimaryColumn()
     id: string;

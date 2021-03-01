@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataGridColumn, Account } from 'src/app/core/interfaces/common.interface';
+import { DataGridColumn, Account, BalanceType } from 'src/app/core/interfaces/common.interface';
 import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { DataProviderService } from 'src/app/services/data-provider.service';
 })
 export class AccountListComponent implements OnInit {
   data: Account[] = [];
+  accountUpdated: Account | null = null;
   columns: DataGridColumn[] = [
     {
       name: 'accountName',
@@ -38,13 +39,27 @@ export class AccountListComponent implements OnInit {
 
   ngOnInit() {
     this.initAccountsSubscription();
+    this.initAccountChangeSubscription();
     this.dataProviderService.initAccountSubscription();
   }
 
   private initAccountsSubscription(): void {
     this.dataProviderService.accounts
       .subscribe((accounts: Account[]) => {
-        this.data = accounts;
+        this.data = accounts.map(
+          (account: Account) => {
+            return {
+              ...account,
+              balanceChange: BalanceType.SAME
+            }
+          });
+      });
+  }
+
+  private initAccountChangeSubscription(): void {
+    this.dataProviderService.account
+      .subscribe((account: Account) => {
+        this.accountUpdated = account;
       })
   }
 }

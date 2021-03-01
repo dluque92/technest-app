@@ -9,9 +9,12 @@ export interface Account {
     tag: string;
     balance: number;
     availableBalance: number;
+    balanceChange?: BalanceType;
 }
 
-export interface AccountDetail {
+export interface AccountTransaction {
+    id: string;
+    accountId: string;
     confirmedDate: string;
     orderId: string;
     orderCode: string;
@@ -19,6 +22,8 @@ export interface AccountDetail {
     debit: number;
     credit: number;
     balance: number;
+    availableBalance?: number;
+    balanceChange?: BalanceType;
 }
 
 export interface DataGridColumn {
@@ -32,4 +37,10 @@ export type QueryCurrentExchange = {
 
 export type QueryAccounts = {
     accounts: Account[];
+}
+
+export enum BalanceType {
+    LOWER = "LOWER",
+    HIGHER = "HIGHER",
+    SAME = "SAME"
 }

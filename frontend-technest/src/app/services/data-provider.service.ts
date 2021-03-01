@@ -10,8 +10,9 @@ import { CurrentExchange, QueryAccounts, QueryCurrentExchange, Account } from '.
   providedIn: 'root'
 })
 export class DataProviderService {
-  currentExchange: Subject<CurrentExchange> = new Subject<CurrentExchange>();
+  account: Subject<Account> = new Subject<Account>();
   accounts: Subject<Account[]> = new Subject<Account[]>();
+  currentExchange: Subject<CurrentExchange> = new Subject<CurrentExchange>();
 
   constructor(
     private apollo: Apollo

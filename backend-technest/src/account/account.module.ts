@@ -9,6 +9,7 @@ import { AccountResolver } from './account.resolver';
     imports: [
         TypeOrmModule.forFeature([Account])
     ],
-    providers: [AccountService, AccountResolver]
+    providers: [AccountService, AccountResolver],
+    exports: [AccountService]
 })
 export class AccountModule {}

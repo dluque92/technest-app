@@ -6,6 +6,7 @@ import { Account } from './account/account.entity';
 import { Exchange } from './exchange/exchange.entity';
 import { AccountModule } from './account/account.module';
 import { ExchangeModule } from './exchange/exchange.module';
+import { SocketModule } from './socket/socket.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { ExchangeModule } from './exchange/exchange.module';
       autoSchemaFile: true
     }),
     AccountModule,
-    ExchangeModule
+    ExchangeModule,
+    SocketModule
   ]
 })
 export class AppModule {}
