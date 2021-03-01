@@ -4,7 +4,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class CustomPaginator extends MatPaginatorIntl {
-
     constructor(
         private translateService: TranslateService
     ) {

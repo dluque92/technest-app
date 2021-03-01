@@ -43,6 +43,10 @@ export type OneQueryAccount = {
     account: Account;
 }
 
+export type QueryTransactions = {
+    transactions: AccountTransaction[];
+}
+
 export enum BalanceType {
     LOWER = "LOWER",
     HIGHER = "HIGHER",

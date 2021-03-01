@@ -3,6 +3,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import * as moment from 'moment';
+
 import { DataProviderService } from 'src/app/services/data-provider.service';
 import { DataGridColumn, Account, CurrentExchange, AccountTransaction, BalanceType } from 'src/app/core/interfaces/common.interface';
 
@@ -64,6 +66,8 @@ export class DataGridComponent implements OnInit, AfterViewInit {
         `${row[propertieName]} BTC`,
         `$${(row[propertieName] * this.currentExchangeUSD).toFixed(2)}`
       ].join('<br />');
+    } else if (propertieName === 'confirmedDate') {
+      return moment(row[propertieName]).format('DD/MM/yyyy HH:mm');
     } else {
       return row[propertieName];
     }

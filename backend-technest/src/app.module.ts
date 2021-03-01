@@ -7,6 +7,8 @@ import { Exchange } from './exchange/exchange.entity';
 import { AccountModule } from './account/account.module';
 import { ExchangeModule } from './exchange/exchange.module';
 import { SocketModule } from './socket/socket.module';
+import { TransactionModule } from './transaction/transaction.module';
+import { Transaction } from './transaction/transaction.entity';
 
 @Module({
   imports: [
@@ -17,7 +19,8 @@ import { SocketModule } from './socket/socket.module';
       useUnifiedTopology: true,
       entities: [
         Account,
-        Exchange
+        Exchange,
+        Transaction
       ]
     }),
     GraphQLModule.forRoot({
@@ -25,7 +28,8 @@ import { SocketModule } from './socket/socket.module';
     }),
     AccountModule,
     ExchangeModule,
-    SocketModule
+    SocketModule,
+    TransactionModule
   ]
 })
-export class AppModule {}
+export class AppModule { }

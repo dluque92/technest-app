@@ -38,6 +38,7 @@
     <div class="row">
         <div class="col-10 offset-1 mt-4">
             <app-data-grid
+                *ngIf="data.length"
                 [data]="data"
                 [columns]="columns">
             </app-data-grid>

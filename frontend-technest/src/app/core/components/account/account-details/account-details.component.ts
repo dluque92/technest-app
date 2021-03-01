@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountTransaction, BalanceType, DataGridColumn, Account, CurrentExchange } from 'src/app/core/interfaces/common.interface';
+
 import { DataProviderService } from 'src/app/services/data-provider.service';
+import { AccountTransaction, BalanceType, DataGridColumn, Account, CurrentExchange } from 'src/app/core/interfaces/common.interface';
 
 @Component({
   selector: 'app-account-details',

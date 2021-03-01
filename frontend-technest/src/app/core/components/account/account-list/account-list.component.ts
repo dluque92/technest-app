@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { DataProviderService } from 'src/app/services/data-provider.service';
 import { DataGridColumn, Account, BalanceType } from 'src/app/core/interfaces/common.interface';

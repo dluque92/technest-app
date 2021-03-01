@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
 import { ApolloQueryResult } from '@apollo/client/core';
 
+import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { CurrentExchange, QueryAccounts, QueryCurrentExchange, Account, AccountTransaction, OneQueryAccount } from '../core/interfaces/common.interface';
+import {
+  Account,
+  QueryAccounts,
+  CurrentExchange,
+  OneQueryAccount,
+  QueryTransactions,
+  AccountTransaction,
+  QueryCurrentExchange
+} from '../core/interfaces/common.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +21,6 @@ export class DataProviderService {
   account: Subject<Account> = new Subject<Account>();
   accountUpdated: Subject<Account> = new Subject<Account>();
   accounts: Subject<Account[]> = new Subject<Account[]>();
-  transaction: Subject<AccountTransaction> = new Subject<AccountTransaction>();
   transactions: Subject<AccountTransaction[]> = new Subject<AccountTransaction[]>();
   currentExchange: BehaviorSubject<CurrentExchange> = new BehaviorSubject<CurrentExchange>({ USD: 0 });
 
@@ -68,7 +75,6 @@ export class DataProviderService {
           category
           tag
           balance
-          availableBalance
         }
       }
     `
@@ -80,23 +86,25 @@ export class DataProviderService {
   }
 
   initTransactionsSubscription(accountId: string): void {
-    this.apollo.watchQuery<QueryAccounts>({
+    this.apollo.watchQuery<QueryTransactions>({
       query: gql`
       {
-        accounts {
+        transactions(id: "${accountId}") {
           id
-          accountName
-          category
-          tag
+          confirmedDate
+          orderId
+          orderCode
+          transactionType
+          debit
+          credit
           balance
-          availableBalance
         }
       }
     `
     })
       .valueChanges
-      .subscribe((result: ApolloQueryResult<QueryAccounts>) => {
-        this.accounts.next(result.data.accounts)
+      .subscribe((result: ApolloQueryResult<QueryTransactions>) => {
+        this.transactions.next(result.data.transactions)
       });
   }
 }
