@@ -9,7 +9,9 @@
     <img src="assets/icons/bitcoin.svg" />
     : ${{ currentExchangeUSD }}
   </span>
-  <button mat-icon-button>
+  <button 
+    mat-icon-button
+    (click)=changeCurrentLanguage()>
     <mat-icon>notifications_none</mat-icon>
   </button>
 </mat-toolbar>

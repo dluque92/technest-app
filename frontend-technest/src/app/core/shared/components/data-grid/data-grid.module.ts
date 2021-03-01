@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 
 import { DataGridComponent } from './data-grid.component';
+import { CustomPaginator } from './custom-paginator';
 
 @NgModule({
   declarations: [DataGridComponent],
@@ -16,6 +17,12 @@ import { DataGridComponent } from './data-grid.component';
     MatSortModule,
     MatTableModule,
     MatPaginatorModule
+  ],
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomPaginator
+    }
   ],
   exports: [
     DataGridComponent

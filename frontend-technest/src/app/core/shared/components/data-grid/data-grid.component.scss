@@ -10,11 +10,16 @@ table {
 }
 
 .lower-balance {
-    color: red;
+    color: $primary-red;
     font-weight: 500;
 }
 
 .higher-balance {
     color: $primary-green;
     font-weight: 500;
+}
+
+.row-navigation:hover {
+    cursor: pointer;
+    background-color: $light-grey;
 }

@@ -7,7 +7,14 @@
             },
             "accountDetails": {
                 "details": "Detalle",
-                "accountDetail": "Detalle de la cuenta"
+                "accountDetail": "Detalle de la cuenta",
+                "confirmedDate": "Fecha confirmada",
+                "orderId": "ID de la orden",
+                "orderCode": "Codigo de orden",
+                "transactionType": "Tipo de transaccion",
+                "debit": "Debito",
+                "credit": "Credito",
+                "balance": "Balance"
             },
             "accountList": {
                 "accountName": "Nombre de la cuenta",
@@ -15,6 +22,13 @@
                 "tags": "Etiquetas",
                 "balance": "Balance",
                 "availableBalance": "Balance disponible"
+            }
+        },
+        "shared": {
+            "dataGrid": {
+                "itemsPerPage": "Items por pagina",
+                "nextPage": "Siguiente pagina",
+                "previousPage": "Pagina anterior"
             }
         }
     }

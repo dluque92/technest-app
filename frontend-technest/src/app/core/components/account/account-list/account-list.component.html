@@ -9,8 +9,10 @@
         <div class="col-10 offset-1 mt-4">
             <app-data-grid
                 [data]="data"
+                [columns]="columns"
+                [canNavigate]="true"
                 [dataUpdated]="accountUpdated"
-                [columns]="columns">
+                (rowSelect)=onRowSelect($event)>
             </app-data-grid>
         </div>
     </div>

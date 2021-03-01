@@ -2,7 +2,45 @@
     <div class="current-section">
         <div class="section-title">{{ 'core.account.accountDetails.accountDetail'|translate }}</div>
         <div class="section-route">
-            {{ 'core.account.shared.home'|translate }} / {{ 'core.account.shared.accounts'|translate }} / <b>{{ 'core.account.accountDetails.details'|translate }}</b>
+            {{ 'core.account.shared.home'|translate }} / 
+            <span 
+                class="accounts-link"
+                routerLink="..">
+                {{ 'core.account.shared.accounts'|translate }}
+            </span>
+             / <b>{{ 'core.account.accountDetails.details'|translate }}</b>
         </div>
     </div>
 </mat-toolbar>
+
+<mat-toolbar class="section-detail mt-4">
+    <div class="current-section">
+        <div class="section-title">{{ currentAccount?.accountName }}</div>
+        <div class="section-route">{{ currentAccount?.category }}</div>
+        <div 
+            class="section-balance"
+            [class.lower-balance]="isLowerBalance()"
+            [class.higher-balance]="isHigherBalance()">
+            {{ currentAccount?.balance }} BTC (${{ getCurrentBalanceInUSD(currentAccount?.balance) }})
+        </div>
+        <div class="section-route">
+            {{ 'core.account.accountList.availableBalance'|translate }}: 
+            <span
+                [class.lower-balance]="isLowerBalance()"
+                [class.higher-balance]="isHigherBalance()">
+                {{ currentAccount?.availableBalance }} BTC (${{ getCurrentBalanceInUSD(currentAccount?.availableBalance) }})
+            </span>
+        </div>
+    </div>
+</mat-toolbar>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10 offset-1 mt-4">
+            <app-data-grid
+                [data]="data"
+                [columns]="columns">
+            </app-data-grid>
+        </div>
+    </div>
+</div>

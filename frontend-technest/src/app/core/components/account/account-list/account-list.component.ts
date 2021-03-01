@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DataGridColumn, Account, BalanceType } from 'src/app/core/interfaces/common.interface';
+import { Router } from '@angular/router';
+
 import { DataProviderService } from 'src/app/services/data-provider.service';
+import { DataGridColumn, Account, BalanceType } from 'src/app/core/interfaces/common.interface';
 
 @Component({
   selector: 'app-account-list',
@@ -30,10 +32,11 @@ export class AccountListComponent implements OnInit {
     {
       name: 'availableBalance',
       title: 'core.account.accountList.availableBalance'
-    },
-  ]
+    }
+  ];
 
   constructor(
+    private router: Router,
     private dataProviderService: DataProviderService
   ) { }
 
@@ -41,6 +44,11 @@ export class AccountListComponent implements OnInit {
     this.initAccountsSubscription();
     this.initAccountChangeSubscription();
     this.dataProviderService.initAccountSubscription();
+  }
+
+  onRowSelect(account: Account): void {
+    this.dataProviderService.account.next(account);
+    this.router.navigate([`accounts/${account.id}`]);
   }
 
   private initAccountsSubscription(): void {
@@ -57,7 +65,7 @@ export class AccountListComponent implements OnInit {
   }
 
   private initAccountChangeSubscription(): void {
-    this.dataProviderService.account
+    this.dataProviderService.accountUpdated
       .subscribe((account: Account) => {
         this.accountUpdated = account;
       })

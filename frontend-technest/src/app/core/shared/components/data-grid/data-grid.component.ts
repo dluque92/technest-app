@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,9 +23,12 @@ export class DataGridComponent implements OnInit, AfterViewInit {
     return this.columns.map((column: DataGridColumn) => column.name);
   }
 
+  @Input() canNavigate: boolean = false;
+  @Input() columns: DataGridColumn[] = [];
   @Input() data: Account[] | AccountTransaction[] = [];
   @Input() dataUpdated: Account | AccountTransaction | null = null;
-  @Input() columns: DataGridColumn[] = [];
+
+  @Output() rowSelect: EventEmitter<any> = new EventEmitter<Account | AccountTransaction>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -72,6 +75,12 @@ export class DataGridComponent implements OnInit, AfterViewInit {
 
   isHigherBalance(account: Account | AccountTransaction, propertieName: string): boolean {
     return this.balanceProperties.includes(propertieName) && account.balanceChange === BalanceType.HIGHER;
+  }
+
+  onRowSelect(account: Account | AccountTransaction): void {
+    if (!this.canNavigate) { return; }
+
+    this.rowSelect.emit(account);
   }
 
   private initCurrentExchangeSubscription(): void {

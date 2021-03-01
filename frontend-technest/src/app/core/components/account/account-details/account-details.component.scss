@@ -1,0 +1,45 @@
+@import 'variables';
+
+.accounts-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $link-blue;
+}
+
+.section-detail {
+    height: 228px;
+    background-color: white;
+    border-top: 1px solid $line-grey;
+    border-bottom: 1px solid $line-grey;
+  
+    .current-section {
+        margin: 2rem;
+        color: $primary-grey;
+  
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+        }
+  
+        .section-route {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .section-balance {
+            font-size: 3rem;
+            font-weight: 400;
+            margin: 1.5rem 0;
+        }
+    }
+}
+
+.lower-balance {
+    color: $primary-red;
+    font-weight: 500;
+}
+
+.higher-balance {
+    color: $primary-green;
+    font-weight: 500;
+}

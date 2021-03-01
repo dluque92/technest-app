@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { CurrentExchange } from '../../interfaces/common.interface';
 import { DataProviderService } from 'src/app/services/data-provider.service';
@@ -12,11 +13,21 @@ export class ToolbarExchangeComponent implements OnInit {
   currentExchangeUSD: string = '';
 
   constructor(
+    private translateService: TranslateService,
     private dataProviderService: DataProviderService
   ) { }
 
   ngOnInit() {
     this.initCurrentExchangeSubscription();
+  }
+
+  changeCurrentLanguage(): void {
+    const langs = this.translateService.getLangs();
+    const currentLang = this.translateService.currentLang;
+    const index = langs.findIndex((lang: string) => lang !== currentLang)
+
+    this.translateService.use(langs[index]);
+    this.translateService.setDefaultLang(langs[index]);
   }
 
   private initCurrentExchangeSubscription(): void {

@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { ApolloQueryResult } from '@apollo/client/core';
 
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
-import { CurrentExchange, QueryAccounts, QueryCurrentExchange, Account } from '../core/interfaces/common.interface';
+import { CurrentExchange, QueryAccounts, QueryCurrentExchange, Account, AccountTransaction, OneQueryAccount } from '../core/interfaces/common.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataProviderService {
   account: Subject<Account> = new Subject<Account>();
+  accountUpdated: Subject<Account> = new Subject<Account>();
   accounts: Subject<Account[]> = new Subject<Account[]>();
-  currentExchange: Subject<CurrentExchange> = new Subject<CurrentExchange>();
+  transaction: Subject<AccountTransaction> = new Subject<AccountTransaction>();
+  transactions: Subject<AccountTransaction[]> = new Subject<AccountTransaction[]>();
+  currentExchange: BehaviorSubject<CurrentExchange> = new BehaviorSubject<CurrentExchange>({ USD: 0 });
 
   constructor(
     private apollo: Apollo
@@ -35,6 +38,48 @@ export class DataProviderService {
   }
 
   initAccountSubscription(): void {
+    this.apollo.watchQuery<QueryAccounts>({
+      query: gql`
+      {
+        accounts {
+          id
+          accountName
+          category
+          tag
+          balance
+          availableBalance
+        }
+      }
+    `
+    })
+      .valueChanges
+      .subscribe((result: ApolloQueryResult<QueryAccounts>) => {
+        this.accounts.next(result.data.accounts)
+      });
+  }
+
+  initOneAccountSubscription(accountId: string): void {
+    this.apollo.watchQuery<OneQueryAccount>({
+      query: gql`
+      {
+        account(id: "${accountId}") {
+          id
+          accountName
+          category
+          tag
+          balance
+          availableBalance
+        }
+      }
+    `
+    })
+      .valueChanges
+      .subscribe((result: ApolloQueryResult<OneQueryAccount>) => {
+        this.account.next(result.data.account)
+      });
+  }
+
+  initTransactionsSubscription(accountId: string): void {
     this.apollo.watchQuery<QueryAccounts>({
       query: gql`
       {
