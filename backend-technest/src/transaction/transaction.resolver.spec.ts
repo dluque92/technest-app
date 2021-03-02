@@ -1,12 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Transaction } from './transaction.entity';
 import { TransactionResolver } from './transaction.resolver';
+import { TransactionService } from './transaction.service';
 
 describe('TransactionResolver', () => {
   let resolver: TransactionResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TransactionResolver],
+      providers: [
+        TransactionResolver,
+        TransactionService,
+        {
+          provide: getRepositoryToken(Transaction),
+          useValue: Transaction
+        }
+      ],
     }).compile();
 
     resolver = module.get<TransactionResolver>(TransactionResolver);

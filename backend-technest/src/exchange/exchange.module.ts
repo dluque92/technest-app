@@ -13,4 +13,4 @@ import { Exchange } from './exchange.entity';
   providers: [ExchangeService, ExchangeResolver],
   exports: [ExchangeService]
 })
-export class ExchangeModule {}
+export class ExchangeModule { }
