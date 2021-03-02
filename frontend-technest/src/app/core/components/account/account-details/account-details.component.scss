@@ -1,20 +1,18 @@
-@import 'variables';
-
 .accounts-link:hover {
     cursor: pointer;
     text-decoration: underline;
-    color: $link-blue;
+    color: #5193ac;
 }
 
 .section-detail {
     height: 228px;
     background-color: white;
-    border-top: 1px solid $line-grey;
-    border-bottom: 1px solid $line-grey;
+    border-top: 1px solid #edf0f0;
+    border-bottom: 1px solid #edf0f0;
   
     .current-section {
         margin: 2rem;
-        color: $primary-grey;
+        color: #8b9399;
   
         .section-title {
             font-size: 2rem;
@@ -35,11 +33,11 @@
 }
 
 .lower-balance {
-    color: $primary-red;
+    color: #cd4b59;
     font-weight: 500;
 }
 
 .higher-balance {
-    color: $primary-green;
+    color: #00b38f;
     font-weight: 500;
 }
